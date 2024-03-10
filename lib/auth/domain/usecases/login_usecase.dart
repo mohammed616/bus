@@ -11,7 +11,7 @@ class LoginUsecase extends BaseUseCase<UserModel, LoginParameters> {
   LoginUsecase(this.baseAuthRepository);
 
   @override
-  Future<Either<Failure,UserModel>> call(LoginParameters parameters) async {
+  Future<Either<Failure,Map<String,dynamic>>> call(LoginParameters parameters) async {
     return await baseAuthRepository.login(parameters.phone, parameters.password);
   }
 }
