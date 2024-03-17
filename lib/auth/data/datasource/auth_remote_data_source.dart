@@ -25,12 +25,14 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   @override
   Future<Map<String, dynamic>> login(String phone, String password) async {
     FormData formData = FormData.fromMap({
-      'phone': phone,
+      'phoneNumber': phone,
       'password': password,
     });
     final response = await Dio().post(ApiConstance.login, data: formData);
-    if (response.statusCode == 200) {
-      return {"token": response.data['token']};
+    print(formData);
+    print(response.data);
+    if (response.data['state']==1) {
+      return response.data;
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),

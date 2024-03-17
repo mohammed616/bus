@@ -1,4 +1,5 @@
 import 'package:bus/auth/presentation/screens/auth_screen.dart';
+import 'package:bus/core/services/services_locator.dart';
 import 'package:bus/core/utils/app_localizations.dart';
 import 'package:bus/core/utils/text_style.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,10 @@ import 'constant/colors.dart';
 
 
 void main() {
-  runApp(const MyApp());
+  ServiceLocator().init();
+  runApp(
+
+       const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,9 +24,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         AppLocalizationsDelegate(),
       ],
       supportedLocales: [

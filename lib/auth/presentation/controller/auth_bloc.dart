@@ -18,41 +18,55 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this.loginUsecase,
     this.registerUseCase,
   ) : super(const AuthState()) {
-    on<LoginEvent>(_login);
-    on<RegisterEvent>(_register);
-  }
-
-  FutureOr<void> _login(LoginEvent event, Emitter<AuthState> emit) async {
+    on<LoginEvent>(
+        (event , emit)async{
+    emit(state.copyWith(loginState: RequestState.loading));
     final result =
-        await loginUsecase(LoginParameters(phone: phone, password: password));
+    await loginUsecase(LoginParameters(phone:event.phone ?? '0', password: event.password ?? " 2"));
 
     result.fold(
-      (l) => emit(state.copyWith(
+          (l) => emit(state.copyWith(
         loginState: RequestState.error,
         loginMessage: l.message,
       )),
-      (r) => emit(state.copyWith(loginState: RequestState.loaded)),
+          (r) => emit(state.copyWith(loginState: RequestState.loaded)),
     );
+    }
+    );
+    on<RegisterEvent>(register);
   }
 
-  FutureOr<void> _register(RegisterEvent event, Emitter<AuthState> emit) async {
+  // Future login(String phone,String password) async {
+  //   final result =
+  //       await loginUsecase(LoginParameters(phone: phone, password: password));
+  //
+  //   result.fold(
+  //     (l) => emit(state.copyWith(
+  //       loginState: RequestState.error,
+  //       loginMessage: l.message,
+  //     )),
+  //     (r) => emit(state.copyWith(loginState: RequestState.loaded)),
+  //   );
+  // }
+
+  Future register(RegisterEvent event, Emitter<AuthState> emit) async {
     final result = await registerUseCase(RegisterParameters(
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-      gender: gender,
-      birthDate: birthDate,
-      mobile: mobile,
-      nationalIdNumber: nationalIdNumber,
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      gender: '',
+      birthDate: '',
+      mobile: '',
+      nationalIdNumber: '',
     ));
 
     result.fold(
       (l) => emit(state.copyWith(
         registerState: RequestState.error,
         registerMessage: l.message,
-      )),x`
+      )),
       (r) => emit(state.copyWith(registerState: RequestState.loaded)),
     );
   }

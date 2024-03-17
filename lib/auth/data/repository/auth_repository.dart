@@ -16,7 +16,8 @@ class AuthRepository extends BaseAuthRepository {
     try {
       return Right(result);
     } on ServerException catch (failure) {
-      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+      print('messsge: $failure');
+      return Left(ServerFailure(failure.errorMessageModel.error));
     }
   }
 
@@ -46,7 +47,7 @@ class AuthRepository extends BaseAuthRepository {
     try {
       return Right(result);
     } on ServerException catch (failure) {
-      return Left(ServerFailure(failure.errorMessageModel.statusMessage));
+      return Left(ServerFailure(failure.errorMessageModel.error));
     }
   }
 }

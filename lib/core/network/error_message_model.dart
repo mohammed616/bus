@@ -1,28 +1,28 @@
 import 'package:equatable/equatable.dart';
 
 class ErrorMessageModel extends Equatable {
-  final int statusCode;
-  final String statusMessage;
-  final bool success;
+  final int state;
+  final  error;
+  final String message;
 
  const ErrorMessageModel({
-    required this.statusCode,
-    required this.statusMessage,
-    required this.success,
+    required this.state,
+    required this.error,
+    required this.message,
   });
 
   factory ErrorMessageModel.fromJson(Map<String, dynamic> json) {
     return ErrorMessageModel(
-      statusCode: json["status_code"],
-      statusMessage: json["status_message"],
-      success: json["success"],
+      state: json["state"],
+      error: json["errors"],
+      message: json["message"],
     );
   }
 
   @override
   List<Object?> get props => [
-        statusCode,
-        statusMessage,
-        success,
+        state,
+        error,
+        message,
       ];
 }
