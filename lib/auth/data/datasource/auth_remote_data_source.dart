@@ -6,24 +6,22 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseAuthRemoteDataSource {
-  Future<Map<String, dynamic>> login(String phone, String password);
+  Future<Map<String, dynamic>> login(String? phone, String? password);
 
   Future<Map<String, dynamic>> register(
-    String firstName,
-    String lastName,
-    String mobile,
-    String email,
-    String password,
-    String confirmPassword,
-    String gender,
-    String birthDate,
-    String nationalIdNumber,
+    String? firstName,
+    String? lastName,
+    String? mobile,
+    String? password,
+    String? gender,
+    String? birthDate,
+    String? nationalIdNumber,
   );
 }
 
 class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
   @override
-  Future<Map<String, dynamic>> login(String phone, String password) async {
+  Future<Map<String, dynamic>> login(String? phone, String? password) async {
     FormData formData = FormData.fromMap({
       'phoneNumber': phone,
       'password': password,
@@ -42,30 +40,31 @@ class AuthRemoteDataSource extends BaseAuthRemoteDataSource {
 
   @override
   Future<Map<String, dynamic>> register(
-    String firstName,
-    String lastName,
-    String mobile,
-    String email,
-    String password,
-    String confirmPassword,
-    String gender,
-    String birthDate,
-    String nationalIdNumber,
+    String? firstName,
+    String? lastName,
+    String? mobile,
+    String? password,
+    String? gender,
+    String? birthDate,
+    String? nationalIdNumber,
   ) async{
+    print("gender$gender");
     FormData formData = FormData.fromMap({
       'firstName': firstName,
       'lastName': lastName,
-      'mobile':mobile,
-      'email':email,
+      'phoneNumber':mobile,
       'password':password,
-      'confirmPassword':confirmPassword,
-      'gender':gender,
-      'birthDate':birthDate,
-      'nationalIdNumber':nationalIdNumber,
+      'gendor':gender,
+      'birthDay':birthDate,
+      'personalId':nationalIdNumber,
+    });
+    formData.fields.forEach((field) {
+      print('${field.key}: ${field.value}');
     });
     final response = await Dio().post(ApiConstance.register, data: formData);
-    if (response.statusCode == 200) {
-      return {"token": response.data['token']};
+    print(response.data);
+    if (response.data['state']==1) {
+      return response.data;
     } else {
       throw ServerException(
         errorMessageModel: ErrorMessageModel.fromJson(response.data),

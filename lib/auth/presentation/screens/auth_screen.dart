@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bus/auth/presentation/components/login_component.dart';
+import 'package:bus/auth/presentation/components/register_component.dart';
 import 'package:bus/auth/presentation/controller/auth_bloc.dart';
 import 'package:bus/auth/presentation/controller/auth_state.dart';
 import 'package:bus/constant/colors.dart';
@@ -9,6 +10,7 @@ import 'package:bus/core/utils/text_style.dart';
 import 'package:bus/core/utils/widget/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 
 class AuthScreen extends StatelessWidget {
@@ -20,8 +22,7 @@ class AuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) =>
-      sl<AuthBloc>()
-        ..add(const LoginEvent())..add(RegisterEvent()),
+      sl<AuthBloc>(),
       child: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -98,59 +99,21 @@ class AuthScreen extends StatelessWidget {
                               // واجهة الاستخدام الخاصة بتسجيل الدخول
                               LoginComponent(),
                               // واجهة الاستخدام الخاصة بالتسجيل
-                              Center(
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: [
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'كلمة المرور',
-                                        ),
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'كلمة المرور',
-                                        ),
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'كلمة المرور',
-                                        ),
-                                      ), TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'كلمة المرور',
-                                        ),
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: 'كلمة المرور',
-                                        ),
-                                      ),
-                                      Button1(
-                                        mainColor: text2,
-                                        title: 'التسجيل',
-                                        style: TextStyle(color: Colors.white),
-                                        onPressed: () {
-
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                              ),
+                              RegisterComponent(),
                             ],
                           ),
 
                         ),
                         SizedBox(height: 16),
 
+
                       ],
                     ),
                   ),
                 ),
               ],
-            )),
+            ),
+        ),
       ),
     );
   }

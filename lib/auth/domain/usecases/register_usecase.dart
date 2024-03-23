@@ -14,13 +14,11 @@ class RegisterUseCase extends BaseUseCase<UserModel, RegisterParameters> {
   Future<Either<Failure, Map<String, dynamic>>> call(
       RegisterParameters parameters) async {
     return await baseAuthRepository.register(
-      parameters.mobile,
       parameters.firstName,
       parameters.lastName,
+      parameters.mobile,
       parameters.password,
-      parameters.confirmPassword,
       parameters.gender,
-      parameters.email,
       parameters.birthDate,
       parameters.nationalIdNumber,
     );
@@ -28,22 +26,18 @@ class RegisterUseCase extends BaseUseCase<UserModel, RegisterParameters> {
 }
 
 class RegisterParameters extends Equatable {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String password;
-  final String confirmPassword;
-  final String gender;
-  final String birthDate;
-  final String mobile;
-  final String nationalIdNumber;
+  final String? firstName;
+  final String? lastName;
+  final String? mobile;
+  final String? password;
+  final String? gender;
+  final String? birthDate;
+  final String? nationalIdNumber;
 
   const RegisterParameters({
     required this.firstName,
     required this.lastName,
-    required this.email,
     required this.password,
-    required this.confirmPassword,
     required this.gender,
     required this.birthDate,
     required this.mobile,
@@ -52,14 +46,12 @@ class RegisterParameters extends Equatable {
 
   @override
   List<Object> get props => [
-        firstName,
-        lastName,
-        email,
-        password,
-        confirmPassword,
-        gender,
-        birthDate,
-        mobile,
-        nationalIdNumber,
+        firstName!,
+        lastName!,
+        mobile!,
+        password!,
+        gender!,
+        birthDate!,
+        nationalIdNumber!,
       ];
 }

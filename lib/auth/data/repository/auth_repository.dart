@@ -3,6 +3,7 @@ import 'package:bus/auth/domain/repository/base_auth_repository.dart';
 import 'package:bus/core/error/exceptions.dart';
 import 'package:bus/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 
 class AuthRepository extends BaseAuthRepository {
   final BaseAuthRemoteDataSource baseAuthRemoteDataSource;
@@ -11,43 +12,49 @@ class AuthRepository extends BaseAuthRepository {
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> login(
-      String phone, String password) async {
-    final result = await baseAuthRemoteDataSource.login(phone, password);
+      String? phone, String? password) async {
+
+
     try {
+      final result = await baseAuthRemoteDataSource.login(phone, password);
       return Right(result);
-    } on ServerException catch (failure) {
-      print('messsge: $failure');
-      return Left(ServerFailure(failure.errorMessageModel.error));
+    }on  DioException catch(failure){
+      return Left(ServerFailure("الاتصال بالانترنت ضعيف"));
+    }
+    on ServerException catch (failure) {
+      print('messsge: ${failure.errorMessageModel.message}');
+      return Left(ServerFailure(failure.errorMessageModel.message));
     }
   }
 
   @override
   Future<Either<Failure, Map<String, dynamic>>> register(
-    String firstName,
-    String lastName,
-    String mobile,
-    String email,
-    String password,
-    String confirmPassword,
-    String gender,
-    String birthDate,
-    String nationalIdNumber,
+    String? firstName,
+    String? lastName,
+    String? mobile,
+    String? password,
+    String? gender,
+    String? birthDate,
+    String? nationalIdNumber,
   ) async {
-    final result = await baseAuthRemoteDataSource.register(
-      firstName,
-      lastName,
-      mobile,
-      email,
-      password,
-      confirmPassword,
-      gender,
-      birthDate,
-      nationalIdNumber,
-    );
+
     try {
+
+      final result = await baseAuthRemoteDataSource.register(
+        firstName,
+        lastName,
+        mobile,
+        password,
+        gender,
+        birthDate,
+        nationalIdNumber,
+      );
       return Right(result);
-    } on ServerException catch (failure) {
-      return Left(ServerFailure(failure.errorMessageModel.error));
+     }on  DioException catch(failure){
+      return Left(ServerFailure("الاتصال بالانترنت ضعيف"));
+    }
+    on ServerException catch (failure) {
+      return Left(ServerFailure(failure.errorMessageModel.message));
     }
   }
 }

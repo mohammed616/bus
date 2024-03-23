@@ -9,9 +9,9 @@ class AuthState extends Equatable {
   final String registerMessage;
 
   const AuthState({
-    this.loginState = RequestState.loading,
+    this.loginState = RequestState.loaded,
     this.loginMessage = '',
-    this.registerState = RequestState.loading,
+    this.registerState = RequestState.loaded,
     this.registerMessage = '',
   });
 

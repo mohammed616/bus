@@ -17,8 +17,8 @@ class LoginUsecase extends BaseUseCase<UserModel, LoginParameters> {
 }
 
 class LoginParameters extends Equatable {
-  final String phone;
-  final String password;
+  final String? phone;
+  final String? password;
 
   const LoginParameters({
     required this.phone,
@@ -27,7 +27,7 @@ class LoginParameters extends Equatable {
 
   @override
   List<Object> get props => [
-        phone,
-        password,
+        phone!,
+        password!,
       ];
 }

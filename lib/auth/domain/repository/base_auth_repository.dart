@@ -5,17 +5,15 @@ import 'package:dartz/dartz.dart';
 
 abstract class BaseAuthRepository {
   Future<Either<Failure, Map<String, dynamic>>> login(
-      String phone, String password);
+      String? phone, String? password);
 
   Future<Either<Failure, Map<String, dynamic>>> register(
-      String firstName,
-      String lastName,
-      String mobile,
-      String email,
-      String password,
-      String confirmPassword,
-      String gender,
-      String birthDate,
-      String nationalIdNumber,
+      String? firstName,
+      String? lastName,
+      String? mobile,
+      String? password,
+      String? gender,
+      String? birthDate,
+      String? nationalIdNumber,
   );
 }

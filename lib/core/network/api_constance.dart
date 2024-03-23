@@ -5,6 +5,6 @@ class ApiConstance{
 
 
   static  String login = "$baseUrl/user/login";
-  static String register="$baseUrl/";
+  static String register="$baseUrl/user/signup";
 
 }

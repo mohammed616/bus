@@ -42,7 +42,7 @@ class Button1 extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Text(title,
-            textAlign: TextAlign.center, style: style),
+            textAlign: TextAlign.center, style: style,),
       ),
     );
   }
